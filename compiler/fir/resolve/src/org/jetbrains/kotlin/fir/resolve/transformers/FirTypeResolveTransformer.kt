@@ -91,7 +91,9 @@ class FirTypeResolveTransformer(
     override fun transformProperty(property: FirProperty, data: Nothing?): CompositeTransformResult<FirDeclaration> {
         return withScopeCleanup {
             property.addTypeParametersScope()
-            transformDeclaration(property, data)
+            val result = transformDeclaration(property, data).single as FirProperty
+            if (property.isFromVararg) result.transformTypeToArrayType()
+            result.compose()
         }
     }
 
