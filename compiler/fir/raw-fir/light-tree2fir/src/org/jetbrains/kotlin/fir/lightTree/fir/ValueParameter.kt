@@ -13,6 +13,7 @@ import org.jetbrains.kotlin.fir.declarations.builder.buildProperty
 import org.jetbrains.kotlin.fir.declarations.impl.FirDeclarationStatusImpl
 import org.jetbrains.kotlin.fir.declarations.impl.FirDefaultPropertyGetter
 import org.jetbrains.kotlin.fir.declarations.impl.FirDefaultPropertySetter
+import org.jetbrains.kotlin.fir.declarations.isFromVararg
 import org.jetbrains.kotlin.fir.diagnostics.DiagnosticKind
 import org.jetbrains.kotlin.fir.diagnostics.ConeSimpleDiagnostic
 import org.jetbrains.kotlin.fir.expressions.builder.buildQualifiedAccessExpression
@@ -56,7 +57,6 @@ class ValueParameter(
             isVar = this@ValueParameter.isVar
             symbol = FirPropertySymbol(callableId)
             isLocal = false
-            isFromVararg = firValueParameter.isVararg
             status = FirDeclarationStatusImpl(modifiers.getVisibility(), modifiers.getModality()).apply {
                 isExpect = modifiers.hasExpect()
                 isActual = modifiers.hasActual()
@@ -67,6 +67,8 @@ class ValueParameter(
             annotations += this@ValueParameter.firValueParameter.annotations
             getter = FirDefaultPropertyGetter(null, session, FirDeclarationOrigin.Source, type, modifiers.getVisibility())
             setter = if (this.isVar) FirDefaultPropertySetter(null, session, FirDeclarationOrigin.Source, type, modifiers.getVisibility()) else null
+        }.apply {
+            this.isFromVararg = firValueParameter.isVararg
         }
     }
 }

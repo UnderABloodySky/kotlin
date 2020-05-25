@@ -6,8 +6,8 @@
 package org.jetbrains.kotlin.fir.resolve.transformers
 
 import org.jetbrains.kotlin.fir.FirElement
+import org.jetbrains.kotlin.fir.declarations.FirTypedDeclaration
 import org.jetbrains.kotlin.fir.declarations.FirValueParameter
-import org.jetbrains.kotlin.fir.declarations.FirVariable
 import org.jetbrains.kotlin.fir.expressions.*
 import org.jetbrains.kotlin.fir.references.*
 import org.jetbrains.kotlin.fir.scopes.impl.withReplacedConeType
@@ -95,7 +95,7 @@ internal fun FirValueParameter.transformVarargTypeToArrayType() {
     }
 }
 
-internal fun FirVariable<*>.transformTypeToArrayType() {
+internal fun FirTypedDeclaration.transformTypeToArrayType() {
     val returnType = returnTypeRef.coneTypeUnsafe<ConeKotlinType>()
     transformReturnTypeRef(
         StoreType,

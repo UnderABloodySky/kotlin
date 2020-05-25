@@ -92,7 +92,11 @@ class FirTypeResolveTransformer(
         return withScopeCleanup {
             property.addTypeParametersScope()
             val result = transformDeclaration(property, data).single as FirProperty
-            if (property.isFromVararg) result.transformTypeToArrayType()
+            if (property.isFromVararg == true) {
+                result.transformTypeToArrayType()
+                property.getter?.transformReturnTypeRef(StoreType, property.returnTypeRef)
+                property.setter?.valueParameters?.map { it.transformReturnTypeRef(StoreType, property.returnTypeRef) }
+            }
             result.compose()
         }
     }

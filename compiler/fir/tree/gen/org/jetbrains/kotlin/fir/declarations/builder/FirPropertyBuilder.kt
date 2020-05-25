@@ -55,7 +55,6 @@ class FirPropertyBuilder : FirTypeParametersOwnerBuilder, FirAnnotationContainer
     var containerSource: DeserializedContainerSource? = null
     lateinit var symbol: FirPropertySymbol
     var isLocal: Boolean by kotlin.properties.Delegates.notNull<Boolean>()
-    var isFromVararg: Boolean = false
     override val typeParameters: MutableList<FirTypeParameter> = mutableListOf()
     lateinit var status: FirDeclarationStatus
 
@@ -78,7 +77,6 @@ class FirPropertyBuilder : FirTypeParametersOwnerBuilder, FirAnnotationContainer
             containerSource,
             symbol,
             isLocal,
-            isFromVararg,
             typeParameters,
             status,
         )

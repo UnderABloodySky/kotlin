@@ -49,7 +49,6 @@ internal class FirPropertyImpl(
     override val containerSource: DeserializedContainerSource?,
     override val symbol: FirPropertySymbol,
     override val isLocal: Boolean,
-    override val isFromVararg: Boolean,
     override val typeParameters: MutableList<FirTypeParameter>,
     override var status: FirDeclarationStatus,
 ) : FirProperty() {

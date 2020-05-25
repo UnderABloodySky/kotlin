@@ -377,7 +377,6 @@ class RawFirBuilder(
                 isVar = isMutable
                 symbol = FirPropertySymbol(callableIdForName(propertyName))
                 isLocal = false
-                isFromVararg = firParameter.isVararg
                 this.status = status
                 getter = FirDefaultPropertyGetter(propertySource, baseSession, FirDeclarationOrigin.Source, type, visibility)
                 setter = if (isMutable) FirDefaultPropertySetter(
@@ -388,6 +387,8 @@ class RawFirBuilder(
                     visibility
                 ) else null
                 extractAnnotationsTo(this)
+            }.apply {
+                isFromVararg = firParameter.isVararg
             }
         }
 
